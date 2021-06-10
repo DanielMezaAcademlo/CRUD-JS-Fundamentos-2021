@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        <h3>
+          CRUD Vanilla Js
+        </h3>
+      </div>
+
+      <form action="" id="addUser">
+        <div class="addUser">
+          <div class="field">
+            <label for="name">Nombre: </label>
+            <input type="text" placeholder="Nombre del usuario" id="name" />
+          </div>
+
+          <div class="field">
+            <label for="lastname">Apellidos: </label>
+            <input
+              type="text"
+              placeholder="Apellidos del usuario"
+              id="lastname"
+            />
+          </div>
+
+          <div class="field">
+            <label for="email">Correo electrónico: </label>
+            <input type="text" placeholder="Correo electrónico" id="email" />
+          </div>
+        </div>
+        <button type="submit" class="submitBtn" id="submitBtn">
+          Guardar usuario
+        </button>
+        <button type="button" class="updateBtn" id="updateBtnSubmit">
+          Editar usuario
+        </button>
+      </form>
+
+      <div class="userList" id="userList"></div>
+    </div>
+    <!-- <script>
+      let session = localStorage.getItem("session");
+      console.log(typeof JSON.parse(session));
+      if (!JSON.parse(session)) {
+        window.location = "index.html";
+      }
+    </script> -->
+    <script src="main.js"></script>
+  </body>
+</html>
