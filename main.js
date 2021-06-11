@@ -19,12 +19,14 @@ let usersList = [
 
 //Varible que va a guardar el elemento HTML en el que vamos a hacer render de nuestro array
 let userListUI = document.getElementById("userList");
+//Variable que va a guardar el formulario
+const userForm = document.getElementById("addUser");
 
 const renderList = () => {
-  //   userListUI.innerHTML = "";
+  userListUI.innerHTML = "";
   userListArray = usersList;
 
-  userListArray.forEach(user => {
+  userListArray.forEach((user, index) => {
     //Creamos el contenedor principal que va a ser la fila de cada usuario
     const userItemDiv = document.createElement("div");
     userItemDiv.setAttribute("class", "userItem");
@@ -65,9 +67,7 @@ const renderList = () => {
 
     //Agregamos una clase, un id, y un addEventListener
     deleteBtn.setAttribute("class", "delete");
-    deleteBtn.addEventListener("click", () =>
-      console.log("Sirve para borrar un elemento")
-    );
+    deleteBtn.addEventListener("click", () => deleteUser(index));
     deleteBtn.innerHTML = "Eliminar";
     deleteBtn.setAttribute("id", "delete");
 
@@ -77,4 +77,24 @@ const renderList = () => {
   });
 };
 
+const createUser = event => {
+  event.preventDefault();
+  let user = {
+    name: document.getElementById("name").value,
+    lastName: document.getElementById("lastname").value,
+    email: document.getElementById("email").value
+  };
+  usersList.push(user);
+  renderList();
+};
+
+const deleteUser = index => {
+  // usersList.splice(index, 1);
+  console.log(
+    `Vamos a eliminar a ${usersList[index].name} que esté en la posición ${index}`
+  );
+  // renderList();
+};
+
+userForm.addEventListener("submit", createUser);
 document.addEventListener("DOMContentLoaded", renderList);
