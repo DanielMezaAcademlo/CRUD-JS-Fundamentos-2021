@@ -17,6 +17,10 @@ let usersList = [
   }
 ];
 
+//Para saber si se crea o se edita
+let updateFlag = false;
+let updateIndex = null;
+
 //Varible que va a guardar el elemento HTML en el que vamos a hacer render de nuestro array
 let userListUI = document.getElementById("userList");
 //Variable que va a guardar el formulario
@@ -56,9 +60,7 @@ const renderList = () => {
 
     //Agregamos una clase, un id y un addEventListener
     updateBtn.setAttribute("class", "update");
-    updateBtn.addEventListener("click", () =>
-      console.log("Este botón sirve para editar")
-    );
+    updateBtn.addEventListener("click", () => updateUser(index, user));
     updateBtn.setAttribute("id", "update");
     updateBtn.innerText = "Editar";
 
@@ -77,24 +79,49 @@ const renderList = () => {
   });
 };
 
-const createUser = event => {
+const createUpdateUser = event => {
   event.preventDefault();
-  let user = {
-    name: document.getElementById("name").value,
-    lastName: document.getElementById("lastname").value,
-    email: document.getElementById("email").value
-  };
-  usersList.push(user);
-  renderList();
+  if (updateFlag) {
+    let updatedUser = {
+      name: document.getElementById("name").value,
+      lastName: document.getElementById("lastname").value,
+      email: document.getElementById("email").value
+    };
+
+    usersList[updateIndex] = updatedUser;
+
+    updateFlag = false;
+    updateIndex = null;
+    renderList();
+  } else {
+    let user = {
+      name: document.getElementById("name").value,
+      lastName: document.getElementById("lastname").value,
+      email: document.getElementById("email").value
+    };
+    usersList.push(user);
+    renderList();
+  }
+  userForm.reset();
+};
+
+const updateUser = (index, user) => {
+  console.log(index);
+  console.log(user);
+  document.getElementById("name").value = user.name;
+  document.getElementById("lastname").value = user.lastName;
+  document.getElementById("email").value = user.email;
+  updateFlag = true;
+  updateIndex = index;
 };
 
 const deleteUser = index => {
-  // usersList.splice(index, 1);
+  usersList.splice(index, 1);
   console.log(
     `Vamos a eliminar a ${usersList[index].name} que esté en la posición ${index}`
   );
-  // renderList();
+  renderList();
 };
 
-userForm.addEventListener("submit", createUser);
+userForm.addEventListener("submit", createUpdateUser);
 document.addEventListener("DOMContentLoaded", renderList);
